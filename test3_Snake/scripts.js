@@ -13,7 +13,7 @@ var snake = {
 
   cells: [],
 
-  maxCells: 3
+  maxCells: 1
 };
 var apple = {
   x: 320,
@@ -71,8 +71,8 @@ function loop() {
         snake.dx = grid;
         snake.dy = 0;
 
-        apple.x = getRandomInt(0, 25) * grid;
-        apple.y = getRandomInt(0, 25) * grid;
+        apple.x = getRandomInt(0, 20) * grid;
+        apple.y = getRandomInt(0, 20) * grid;
       }
     }
   });
