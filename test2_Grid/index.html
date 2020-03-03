@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Grid</title>
+	<meta charset="utf-8">
+</head>
+<style type="text/css">
+	input[type=text]{
+		width: 100px;
+	}
+	button{
+		width: 70px;
+		height: 30px;
+	}
+	#create{
+		width: 150px;
+	}
+</style>
+<body>
+	<label>nhâp số hàng</label>
+	<input type="text" name="num1" id="num1">
+	<label>nhâp số cột</label>
+	<input type="text" name="num2" id="num2">
+	<button id="create" onclick="create()">Create</button>
+	<div id="main">
+		
+	</div>
+<script type="text/javascript">
+	function render(num1,num2){
+			var resum = "<table cellspacing ='0' cellpadding ='0'>";
+			for(var i =0 ; i < num1 ; i++){
+			if (i == 0) {
+				for(var j = 0; j < num2; j++){
+					resum += "<th>";
+					resum += "<button id='head'  onclick='sort()' >"+(j+1)+"</button>";
+					resum += "</th>";
+				}
+			}	
+				resum += "<tr>";
+
+				for(var j = 0; j < num2; j++){
+					resum += "<td>"+"<button id='but"+i+"_"+j+" ' >"+Math.floor(Math.random() * 1000);+"</button>"+"</tr>";
+				}
+				resum += "</tr>";				
+			}
+			resum += "</table>";
+			return resum;
+		}
+
+		function create(){
+			var num1 = document.getElementById("num1").value;
+			var num2 = document.getElementById("num2").value;
+			document.getElementById("main").innerHTML = render(num1,num2);
+		}
+		function sort() {
+			var a = document.getElementById("head");
+			console.log(a);
+		}
+		
+</script>
+</body>
+</html>
