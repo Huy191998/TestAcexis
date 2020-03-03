@@ -1,61 +1,81 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title>Grid</title>
 	<meta charset="utf-8">
+	<title>Grid</title>
 </head>
 <style type="text/css">
-	input[type=text]{
-		width: 100px;
-	}
-	button{
-		width: 70px;
-		height: 30px;
-	}
-	#create{
-		width: 150px;
-	}
+button{
+	width: 50px;
+	height: 25px;
+}
+
+
+
 </style>
 <body>
-	<label>nhâp số hàng</label>
-	<input type="text" name="num1" id="num1">
-	<label>nhâp số cột</label>
-	<input type="text" name="num2" id="num2">
-	<button id="create" onclick="create()">Create</button>
+	<label>Nhập số hàng: </label>
+	<input type="text" id="num1">
+	<label>Nhập số cột: </label>
+	<input type="text" id="num2">
+	<button class="create" >Tạo</button>
 	<div id="main">
-		
 	</div>
+
+
+
 <script type="text/javascript">
-	function render(num1,num2){
-			var resum = "<table cellspacing ='0' cellpadding ='0'>";
-			for(var i =0 ; i < num1 ; i++){
+
+	const add = document.querySelector('.create');
+	function render(row,col){
+		var content = "<table cellspacing ='0' cellpadding ='0' id='myTable'>";
+		for(var i =0 ; i < row ; i++){
 			if (i == 0) {
-				for(var j = 0; j < num2; j++){
-					resum += "<th>";
-					resum += "<button id='head'  onclick='sort()' >"+(j+1)+"</button>";
-					resum += "</th>";
+				for(var j = 0; j < col; j++){
+					content += "<th>";
+					content += "<button id='th' onclick='sortTable("+(j)+")'>"+(j+1)+"</button>";
+					content += "</th>";
 				}
 			}	
-				resum += "<tr>";
-
-				for(var j = 0; j < num2; j++){
-					resum += "<td>"+"<button id='but"+i+"_"+j+" ' >"+Math.floor(Math.random() * 1000);+"</button>"+"</tr>";
-				}
-				resum += "</tr>";				
+			content += "<tr>";
+			for(var j = 0; j < col; j++){
+				content += "<td>";
+				content += "<button  class='col'>"+Math.floor(Math.random() * (1000 - 100 + 1) + 100)+"</button >";
+				content += "</td>";
 			}
-			resum += "</table>";
-			return resum;
+			content += "</tr>";				
 		}
+		content += "</table>";
+		return content;
+	}
 
-		function create(){
-			var num1 = document.getElementById("num1").value;
-			var num2 = document.getElementById("num2").value;
-			document.getElementById("main").innerHTML = render(num1,num2);
-		}
-		function sort() {
-			var a = document.getElementById("head");
-			console.log(a);
-		}
+function sortTable(e) {
+	  var table, rows, switching, i, x, y, shouldSwitch;
+	  table = document.getElementById("myTable");
+	  switching = true;
+	  while (switching) {
+	    switching = false;
+	    rows = table.rows;
+	    for (i = 1; i < (rows.length -1); i++) {
+	      shouldSwitch = false;
+	      x = rows[i].getElementsByTagName("TD")[e];
+	      y = rows[i + 1].getElementsByTagName("TD")[e];
+	      if (x.innerHTML > y.innerHTML) {
+	        shouldSwitch = true;
+	        break;
+	      }
+	    }
+	    if (shouldSwitch) {
+	      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+	      switching = true;
+	    }
+	  }
+}
+add.addEventListener('click',()=>{
+	const row = document.getElementById("num1").value;
+	const col = document.getElementById("num2").value;
+	document.getElementById("main").innerHTML = render(row,col);
+});
 		
 </script>
 </body>
